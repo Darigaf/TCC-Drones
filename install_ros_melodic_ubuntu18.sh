@@ -9,7 +9,7 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 #Atualiza os repositórios de pacotes do apt
 sudo apt update
 #
-sudo apt install -Vy ros-melodic-desktop-full ros-melodic-ar-track-alvar ros-melodic-usb-cam 
+sudo apt install -Vy ros-melodic-desktop-full ros-melodic-ar-track-alvar ros-melodic-usb-cam
 echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
