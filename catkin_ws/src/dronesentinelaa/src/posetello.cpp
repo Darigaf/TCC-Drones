@@ -23,29 +23,28 @@ std_msgs::Empty empty;
 float yaw_angle;
 float pose_x=0.1, difpos_x;
 float pose_y=0.1, difpos_y;
+float pose_z=0.1, difpos_z;
 double orienta_w;
 double delta =0;
 float velocidade=0.3, x,y,z;
 
 void VisuCallBack(const visualization_msgs::Marker::ConstPtr tag){
     //pose.orientation.x = (float)tag->id; só caso detecta outras tags
-    pos.position.x = tag->pose.position.x;//passando a data da tag para uma variavel para melhor manipulação
-    pos.position.y = tag->pose.position.y;
-    pos.position.z = tag->pose.position.z;
 
     pose_x = -(tag->pose.position.x); //conversão para utilizar o quaternion 
     pose_y = -(tag->pose.position.y); 
+    pose_z = -(tag->pose.position.z);
     tf::poseMsgToTF(tag->pose, posetf); //convertendo pro tf, assim a maquina ocnsegue ler
     yaw_angle = -(tf::getYaw(posetf.getRotation()));//agora que o posetf tem as datas, fez conversão para pegar o angulo Yaw (o que serve pra girar em si mesmo)
 
-    ROS_INFO("o xy é: %f %f", pose_x, pose_y);
+    ROS_INFO("o x = %f | y = %f | z = %f", pose_x, pose_y, pose_z);
 }
 int main(int argc, char **argv)
 {
 
 // ROS publisher and subscriber initialization
     ROS_WARN("...Publicado dormir");
-    ros::init(argc, argv, "posetello");//vai chamar o quaternion para fazer calculos e n dar merda
+    ros::init(argc, argv,"quaternion");//vai chamar o quaternion para fazer calculos e n dar merda
     ros::NodeHandle n;
 
     ros::Subscriber subvisu = n.subscribe("/visualization_marker",1000, VisuCallBack); //vai usar o topico e fazer oq ta escrito no callback
@@ -54,31 +53,27 @@ int main(int argc, char **argv)
     ros::Publisher publand = n.advertise<std_msgs::Empty>("/tello/land", 1);
 
    //chama callback
-    ros::spinOnce();
     ros::Rate loop_rate(10);
+    sleep(3);
     pubtakeoff.publish(empty);
+    sleep(1);
     while(ros::ok()){
-            if(pose_x<0.30){
-                x=0.2;
+        ros::spinOnce();
+            if(pose_y<0.1 ){
+                x=0;
                 y=0;
-                z=0;
-                ROS_WARN("...Publicado x1");
+                z=0.2;
                 
-            }else if(pose_x >0.40){
-                x=-0.2;
+                ROS_INFO("o x = %f | y = %f | z = %f", pose_x, pose_y, pose_z);
+            }else if(pose_y < -0.1){
+                x=0;
+                y=0;
+                z=-0.2;
+                ROS_INFO("o x = %f | y = %f | z = %f", pose_x, pose_y, pose_z);
+            }else{
+                x=0;
                 y=0;
                 z=0;
-                ROS_WARN("...Publicado x2");
-            }else if(pose_y<0.15){
-                x=0;
-                y=0.2;
-                z=0;
-                ROS_WARN("...Publicado y1");
-            }else if(pose_y >0.26){
-                x=0;
-                y=-0.2;
-                z=0;
-                ROS_WARN("...Publicado y2");
             }
             cmd_vel.linear.x = x;
             cmd_vel.linear.y = y;
@@ -87,7 +82,8 @@ int main(int argc, char **argv)
             cmd_vel.angular.y = 0;
             cmd_vel.angular.z = 0;
             pubcmd_vel.publish(cmd_vel);
-            sleep(1);
+            sleep(0.2);
     }
+    
     return 0;
 }
