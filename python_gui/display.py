@@ -37,16 +37,8 @@ def show_video():
 camera_drone.pack()
 controler = ttk.Frame(mainframe, height=72)
 controler_wasd = ttk.Frame(controler)
-
-#controler.grid(column=0, row=1, sticky=(S))
-controler.pack(side=BOTTOM)
-#controler.rowconfigure(0, weight=5)
-#controler.columnconfigure(0, weight=5)
-
-#controler_wasd.grid(column=0, row=1, sticky=(S, W))
-controler_wasd.pack(side=LEFT)
-#controler_wasd.rowconfigure(0)
-#controler_wasd.columnconfigure(0)
+controler.place(height=100, width=1280, x=0, y=620)
+controler_wasd.place(width=248, height=100, x=10, y=10)
 
 #defines wasd buttons
 controler_w = ttk.Button(controler_wasd, text='W')
@@ -54,17 +46,20 @@ controler_a = ttk.Button(controler_wasd, text='A')
 controler_s = ttk.Button(controler_wasd, text='S')
 controler_d = ttk.Button(controler_wasd, text='D')
 
-controler_w.pack()
-controler_a.pack()
-controler_s.pack()
-controler_d.pack()
-
-
+controler_w.place(x=45, y=00)
+controler_a.place(x=10, y=30)
+controler_s.place(x=45, y=30)
+controler_d.place(x=70, y=30)
 #places the wasd buttons on their default layout
-#controler_w.grid(column=1, row=0)
-#controler_a.grid(column=0, row=1)
-#controler_s.grid(column=1, row=1)
-#controler_d.grid(column=2, row=1)
+
+controler.lift()
+
+controler_wasd.lift()
+controler_w.lift()
+controler_a.lift()
+controler_s.lift()
+controler_d.lift()
+
 
 #controler_up_down = ttk.Frame(controler)
 #controler_land_takeoff = ttk.Frame(controler)
