@@ -41,15 +41,15 @@ controler.place(height=100, width=1280, x=0, y=620)
 controler_wasd.place(width=248, height=100, x=10, y=10)
 
 #defines wasd buttons
-controler_w = ttk.Button(controler_wasd, text='W')
-controler_a = ttk.Button(controler_wasd, text='A')
-controler_s = ttk.Button(controler_wasd, text='S')
-controler_d = ttk.Button(controler_wasd, text='D')
+controler_w = ttk.Button(controler_wasd, text='W', width=3)
+controler_a = ttk.Button(controler_wasd, text='A', width=3)
+controler_s = ttk.Button(controler_wasd, text='S', width=3)
+controler_d = ttk.Button(controler_wasd, text='D', width=3)
 
 controler_w.place(x=45, y=00)
 controler_a.place(x=10, y=30)
 controler_s.place(x=45, y=30)
-controler_d.place(x=70, y=30)
+controler_d.place(x=80, y=30)
 #places the wasd buttons on their default layout
 
 controler.lift()
