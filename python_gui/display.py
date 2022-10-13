@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
+import camera
 #import PIL
 import cv2
 
@@ -14,10 +15,8 @@ root.geometry("1280x720")
 mainframe = ttk.Frame(root, padding="3 3 12 12")
 mainframe.pack()
 #places the mainframe on the screen grid
-#mainframe.grid(column=0, row=0)
-#mainframe.columnconfigure(0, weight=10)
-#mainframe.rowconfigure(0, weight=10)
 
+camera.video_setup()
 camera_drone = Label(mainframe)
 video = cv2.VideoCapture(0)
 video_size = (1280, 720)
@@ -35,26 +34,24 @@ def show_video():
 #camera = ttk.Frame(mainframe, width=1280, height=720)
 
 camera_drone.pack()
-controler = ttk.Frame(mainframe, height=72)
-controler_wasd = ttk.Frame(controler)
-controler.place(height=100, width=1280, x=0, y=620)
-controler_wasd.place(width=248, height=100, x=10, y=10)
+#controler = ttk.Frame(mainframe, height=72)
+controler_wasd = ttk.Frame(mainframe)
+#controler.place(height=100, width=1280, x=0, y=620)
+#controler_wasd.place(width=120, height=60, x=10, y=630)
 
 #defines wasd buttons
-controler_w = ttk.Button(controler_wasd, text='W', width=3)
-controler_a = ttk.Button(controler_wasd, text='A', width=3)
-controler_s = ttk.Button(controler_wasd, text='S', width=3)
-controler_d = ttk.Button(controler_wasd, text='D', width=3)
+controler_w = ttk.Button(mainframe, text='W', width=3)
+controler_a = ttk.Button(mainframe, text='A', width=3)
+controler_s = ttk.Button(mainframe, text='S', width=3)
+controler_d = ttk.Button(mainframe, text='D', width=3)
 
-controler_w.place(x=45, y=00)
-controler_a.place(x=10, y=30)
-controler_s.place(x=45, y=30)
-controler_d.place(x=80, y=30)
+controler_w.place(x=55, y=632)
+controler_a.place(x=20, y=660)
+controler_s.place(x=55, y=660)
+controler_d.place(x=90, y=660)
 #places the wasd buttons on their default layout
 
-controler.lift()
 
-controler_wasd.lift()
 controler_w.lift()
 controler_a.lift()
 controler_s.lift()
