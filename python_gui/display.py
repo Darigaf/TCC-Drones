@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
-import camera
+#import camera
 import cv2
 
 #creates the main screen and set it's size to the monitor fullscreen size 
@@ -10,16 +10,16 @@ screen_width= root.winfo_screenwidth()
 screen_height= root.winfo_screenheight()
 root.title("Sentinelas")
 root.geometry = str(screen_width)+'x'+str(screen_height)
+conectar_drone_position_x = (screen_width/2)-100
+conectar_drone_position_y = screen_height-100
 
-
-tello_connect = ttk.Button(mainframe, text='Pressione para Conectar o tello')
-aux = 1
-while aux == 1:
-    tello_connect.place(x=((screen_width/2) - 100), y=(screen_height-100))  
+#conectar_drone = ttk.Button(root, text='Pressione para Conectar o tello', command = camera.start())
+#conectar_drone.place(x=conectar_drone_position_x, y=conectar_drone_position_y)
+    
 
 #Defines what video source to use and adjust it's size to the main screen size
-#video = cv2.VideoCapture(0)
-video = me.get_frame_read().frame
+video = cv2.VideoCapture(0)
+#video = video.get_frame_read().frame
 video_size = (screen_width, screen_height)
 
 def show_video():
@@ -54,7 +54,7 @@ controler_d = ttk.Button(mainframe, text='D', width=3)
 controler_q = ttk.Button(mainframe, text='Q', width=3)
 controler_e = ttk.Button(mainframe, text='E', width=3)
 
-controler_front = ttk.Button(mainframe, text='↑', width=3, command = teste)
+controler_front = ttk.Button(mainframe, text='↑', width=3)
 controler_left = ttk.Button(mainframe, text='←', width=3)
 controler_back = ttk.Button(mainframe, text='↓', width=3)
 controler_right = ttk.Button(mainframe, text='→', width=3)
@@ -92,7 +92,8 @@ def controler_buttons_lift():
 #controler_up_down = ttk.Frame(controler)
 #controler_land_takeoff = ttk.Frame(controler)
 #controler_w.bind(<Key>, teste()) 
-controler_buttons_place()
-controler_buttons_lift()
-show_video()
-root.mainloop()
+while True:
+    controler_buttons_place()
+    controler_buttons_lift()
+    show_video()
+    root.mainloop()
