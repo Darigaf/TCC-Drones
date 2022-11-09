@@ -41,13 +41,14 @@ class Button:
         if self.rect.collidepoint(mouse): 
             print("colisao")
 
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.comando()
-                    self.image.fill(color_pressed)
-                    time.sleep(0.1)
-                else:
-                    self.image.fill(color_unpressed)
+            if mouse_is_pressed[0]:
+                self.comando()
+                self.image.fill(color_pressed)
+                print("pressao")
+                return True
+            else:
+                self.image.fill(color_unpressed)
+                return False
         else:
             self.image.fill((255,255,0))
 
@@ -63,13 +64,20 @@ color_bg = (255,255,255)
 
 color_pressed = (100,100,100)
 color_unpressed = (170,170,170)
+x = 0
+def testando():
+    print("funcionaaa")
+    global x
+    x = 50
 
 
 while True:
     pygame.event.get()
     mouse = pygame.mouse.get_pos()
+    mouse_is_pressed = pygame.mouse.get_pressed()
+
     print(mouse)
-    bota_1 = Button("w", (100, 100), 40, (255,255,0), (lambda: print("hello")))
+    print(mouse_is_pressed)
 
     img = cv2.cvtColor(webcam.read()[1],cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, tamanho_tela)
@@ -79,8 +87,39 @@ while True:
     py_img = pygame.image.frombuffer(img.tostring(), img.shape[1::-1], "RGB")
     tela.blit(py_img, ((tamanho_tela[0]/6),0))
     pygame.display.flip()
+    pos1 = (100, 600)
+    pos2 = (600, 600)
+    cor = (255,255,0)
 
-    bota_1.blit()
+    botao_w = Button("w", (pos1), 40, (cor), (testando))
+    pos1 = (pos1[0] - 26), (pos1[1] + 45)
+    botao_a = Button("a", (pos1), 40, (cor), (lambda: print("a")))
+    pos1 = (pos1[0] + 30), pos1[1]
+    botao_s = Button("s", (pos1), 40, (cor), (lambda: print("s")))
+    pos1 = (pos1[0] + 28), pos1[1]
+    botao_d = Button("d", (pos1), 40, (cor), (lambda: print("d")))
+
+    botao_cima = Button("↑", (pos2), 40, (cor), (lambda: print("↑")))
+    pos2 = (pos2[0] - 45), (pos2[1] + 52)
+    botao_esquerda = Button("←", (pos2), 40, (cor), (lambda: print("←")))
+    pos2 = (pos2[0] + 45), pos2[1]
+    botao_baixo = Button("↓", (pos2), 40, (cor), (lambda: print("↓")))
+    pos2 = (pos2[0] + 30), pos2[1]
+    botao_direita = Button("→", (pos2), 40, (cor), (lambda: print("→")))
+
+    print(botao_w.hover_effect())
+    
+    botao_w.blit()
+    botao_a.blit()
+    botao_s.blit()
+    botao_d.blit()
+
+    botao_cima.blit()
+    botao_esquerda.blit()
+    botao_baixo.blit()
+    botao_direita.blit()
+
     pygame.display.update()
 
-
+    ls = 0
+    
