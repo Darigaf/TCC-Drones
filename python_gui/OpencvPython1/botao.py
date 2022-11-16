@@ -3,8 +3,9 @@ import pygame.image
 from PIL import Image
 import cv2
 import time
+import KeyPressModule as kp
 
-pygame.init()
+kp.init()
 
 tamanho_tela = (720, 720)
 
@@ -42,7 +43,7 @@ class Button:
             print("colisao")
 
             if mouse_is_pressed[0]:
-                self.comando()
+                #self.comando()
                 self.image.fill(color_pressed)
                 print("pressao")
                 return True
@@ -91,7 +92,7 @@ while True:
     pos2 = (600, 600)
     cor = (255,255,0)
 
-    botao_w = Button("w", (pos1), 40, (cor), (testando))
+    botao_w = Button("w", (pos1), 40, (cor), ())
     pos1 = (pos1[0] - 26), (pos1[1] + 45)
     botao_a = Button("a", (pos1), 40, (cor), (lambda: print("a")))
     pos1 = (pos1[0] + 30), pos1[1]
@@ -108,6 +109,9 @@ while True:
     botao_direita = Button("→", (pos2), 40, (cor), (lambda: print("→")))
 
     print(botao_w.hover_effect())
+
+    if kp.getKey("w") or botao_w.hover_effect():
+        print("top")
     
     botao_w.blit()
     botao_a.blit()
