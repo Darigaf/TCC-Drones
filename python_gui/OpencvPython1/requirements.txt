@@ -1,0 +1,5 @@
+djitellopy==2.4.0
+Pillow==9.3.0
+pygame==2.1.2
+python-time==0.3.0
+opencv-python==4.6.0.66
