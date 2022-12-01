@@ -9,14 +9,14 @@ import cv2
 
 kp.init()
 drone = tello.Tello()
-#drone.connect()
+drone.connect()
 cor_unpressed = (201,221,255)
 cor_pressed = (141,141,255)
 cor_botao = cor_unpressed
 
 tamanho_tela = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 command_port = 8889
-#drone.streamon()
+drone.streamon()
 screen = pygame.display.set_mode( ( tamanho_tela ) )
 
 
@@ -161,8 +161,8 @@ def bateria_print_percentage(bateria):
     pygame.draw.rect(screen, (bateria_cor), (90, 13, bateria_porcentagem, 30))
 
 def show_drone_camera():
-    #img = drone.get_frame_read().frame
-    img = webcam.read()[1]
+    img = drone.get_frame_read().frame
+    #img = webcam.read()[1]
     img_resized = cv2.resize(img, tamanho_tela)
     imagem = Image.fromarray(img_resized)
     py_img = pygame.image.frombuffer(img_resized.tostring(), img_resized.shape[1::-1], "BGR")
